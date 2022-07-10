@@ -6,7 +6,13 @@ import TheNavbar from "./components/UI/TheNavbar.vue";
   <nav>
     <the-navbar></the-navbar>
   </nav>
-  <RouterView />
+  <div class="container mx-auto px-72 flex justify-center">
+    <RouterView />
+  </div>
 </template>
 
-<style></style>
+<style>
+.use-shadow {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+</style>
