@@ -7,7 +7,7 @@
           <input
             id="frontend"
             type="checkbox"
-            value=""
+            v-model="frontend"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
           />
           <label for="frontend" class="ml-2 font-semibold text-sm text-gray-900"
@@ -19,7 +19,7 @@
             checked
             id="backend"
             type="checkbox"
-            value=""
+            v-model="backend"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
           />
           <label for="backend" class="ml-2 font-semibold text-sm text-gray-900"
@@ -31,7 +31,7 @@
             checked
             id="career"
             type="checkbox"
-            value=""
+            v-model="career"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
           />
           <label for="career" class="ml-2 font-semibold text-sm text-gray-900"
@@ -43,4 +43,27 @@
   </div>
 </template>
 
-<style scoped></style>
+<script setup>
+import { ref, watch } from "vue";
+const props = defineProps({
+  frontend: {
+    type: Boolean,
+  },
+  backend: {
+    type: Boolean,
+  },
+  career: {
+    type: Boolean,
+  },
+});
+
+const frontend = ref(props.frontend);
+const backend = ref(props.backend);
+const career = ref(props.career);
+
+const emit = defineEmits(["checkboxes"]);
+
+watch([frontend, backend, career], () => {
+  emit("checkboxes", { frontend, backend, career });
+});
+</script>
