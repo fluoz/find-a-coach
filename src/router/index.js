@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import RequestsView from "../views/RequestsView.vue";
+import HomeView from "../views/coaches/CoachHome.vue";
+import RequestsView from "../views/requests/RequestsHome.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

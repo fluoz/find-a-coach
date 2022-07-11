@@ -1,12 +1,6 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import TheNavbar from "./components/UI/TheNavbar.vue";
-import { useCoachStore } from "./stores/coachsApi";
-
-const coaches = useCoachStore();
-onMounted(() => {
-  coaches.getCoachData();
-});
 </script>
 
 <template>
