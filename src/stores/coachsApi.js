@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+const firebase_realtime_database = import.meta.env.VITE_FIREBASE;
+
 export const useCoachStore = defineStore({
   id: "coachs-api",
   state: () => ({
@@ -11,26 +13,22 @@ export const useCoachStore = defineStore({
   },
   actions: {
     async getCoachData() {
-      axios
-        .get(
-          "https://vue-http-75255-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json"
-        )
-        .then((res) => {
-          const data = res.data;
-          const result = [];
+      axios.get(`${firebase_realtime_database}/coaches.json`).then((res) => {
+        const data = res.data;
+        const result = [];
 
-          for (const id in data) {
-            result.push({
-              id: id,
-              name: data[id].name,
-              price: data[id].price,
-              type: data[id].type,
-              description: data[id].description,
-            });
-          }
-          this.data = result;
-          // console.log(result);
-        });
+        for (const id in data) {
+          result.push({
+            id: id,
+            name: data[id].name,
+            price: data[id].price,
+            type: data[id].type,
+            description: data[id].description,
+          });
+        }
+        this.data = result;
+        // console.log(result);
+      });
     },
   },
 });
