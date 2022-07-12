@@ -6,15 +6,16 @@
         <p class="font-bold mt-2 text-base">${{ data.value.price }}/hour</p>
       </div>
     </div>
-    <div style="width: 800px" class="h-32 use-shadow rounded-2xl mt-8">
-      <div class="container pb-14 relative mx-auto px-5 pt-5">
+    <div style="width: 800px" class="use-shadow rounded-2xl mt-8">
+      <div class="container mx-auto px-5 pt-5">
         <h1 class="text-2xl font-bold">Interested? Reach out now!</h1>
         <router-link
+          class="py-2 px-4 inline-block my-4 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-md"
           :to="{ name: 'coach-contact' }"
-          class="absolute bottom-0 py-2 px-4 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-md"
         >
           Contact
         </router-link>
+        <router-view></router-view>
       </div>
     </div>
     <view-details :data="data.value"></view-details>

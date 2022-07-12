@@ -15,13 +15,20 @@
               {{ type.toUpperCase() }}
             </div>
             <div class="flex bottom-1 right-0 absolute">
-              <button
-                class="ml-4 py-2 px-4 text-purple-700 border border-violet-600 bg-white hover:bg-violet-200 font-medium rounded-md"
-              >
-                Contact
-              </button>
               <router-link
-                :to="routeTo"
+                class="ml-4 py-2 px-4 text-purple-700 border border-violet-600 bg-white hover:bg-violet-200 font-medium rounded-md"
+                :to="{
+                  name: 'coach-contact',
+                  params: { coachId: props.data.id },
+                }"
+                >Contact</router-link
+              >
+
+              <router-link
+                :to="{
+                  name: 'coach-member',
+                  params: { coachId: props.data.id },
+                }"
                 class="ml-4 py-2 px-4 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-md"
               >
                 View Details
@@ -42,9 +49,5 @@ const props = defineProps({
   data: {
     type: Object,
   },
-});
-//
-const routeTo = computed(() => {
-  return { name: "coach-member", params: { coachId: props.data.id } };
 });
 </script>
