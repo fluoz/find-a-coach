@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
 import { typeColor } from "../../hooks/colorbanner";
 
 const props = defineProps({

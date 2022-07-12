@@ -10,6 +10,7 @@
       <div class="container mx-auto px-5 pt-5">
         <h1 class="text-2xl font-bold">Interested? Reach out now!</h1>
         <router-link
+          v-if="routeIf"
           class="py-2 px-4 inline-block my-4 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-md"
           :to="{ name: 'coach-contact' }"
         >
@@ -22,13 +23,21 @@
   </section>
 </template>
 <script setup>
-import { computed, reactive } from "@vue/reactivity";
+import { computed } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 import ViewDetails from "../../components/Member/ViewDetails.vue";
 import { load_coach } from "../../hooks/load_coach";
 
 const route = useRoute();
 const coachId = computed(() => route.params.coachId);
+const routePath = computed(() => route.path);
+
+const routeIf = computed(() => {
+  if (routePath.value == `/coaches/${coachId.value}/contact`) {
+    return false;
+  }
+  return true;
+});
 
 const data = computed(() => load_coach(coachId.value));
 </script>

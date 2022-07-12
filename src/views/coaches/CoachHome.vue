@@ -2,7 +2,7 @@
 import FindCoach from "../../components/Home/FindCoach.vue";
 import TheCoachs from "../../components/Home/TheCoachs.vue";
 import TheSpinner from "../../components/UI/TheSpinner.vue";
-import { computed, onMounted, provide, ref } from "vue";
+import { onMounted, provide, ref } from "vue";
 import { useCoachStore } from "../../stores/coachsApi.js";
 
 const coaches = useCoachStore();
