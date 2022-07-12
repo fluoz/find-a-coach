@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 800px" class="use-shadow rounded-2xl mt-12">
+  <div style="width: 800px" class="use-shadow rounded-2xl mt-8">
     <div class="container mx-auto p-5">
       <div class="flex mt-2 relative">
         <div
