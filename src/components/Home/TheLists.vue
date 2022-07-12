@@ -20,11 +20,12 @@
               >
                 Contact
               </button>
-              <button
+              <router-link
+                :to="routeTo"
                 class="ml-4 py-2 px-4 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-md"
               >
                 View Details
-              </button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -34,18 +35,16 @@
 </template>
 
 <script setup>
+import { computed } from "@vue/reactivity";
+import { typeColor } from "../../hooks/colorbanner";
+
 const props = defineProps({
   data: {
     type: Object,
   },
 });
-
-const typeColor = (type) => {
-  if (type === "frontend") {
-    return ["px-3", "py-1", "bg-red-800", "text-white", "rounded-full"];
-  } else if (type === "career") {
-    return ["px-3", "py-1", "bg-blue-800", "text-white", "rounded-full"];
-  }
-  return ["px-3", "py-1", "bg-purple-800", "text-white", "rounded-full"];
-};
+//
+const routeTo = computed(() => {
+  return { name: "coach-member", params: { coachId: props.data.id } };
+});
 </script>

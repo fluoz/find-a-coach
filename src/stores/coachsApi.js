@@ -29,6 +29,7 @@ export const useCoachStore = defineStore({
             });
           }
           this.data = result;
+          // console.log(result);
         });
     },
   },
