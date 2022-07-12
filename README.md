@@ -1,7 +1,8 @@
 # find-coach
 
 This template should help get you started developing with Vue 3 in Vite.
-please to change the VITE_FIREBASE in .env file to firebase realtime database url
+
+Please change the VITE_FIREBASE in the .env file into your firebase realtime database url.
 
 ## Recommended IDE Setup
 
