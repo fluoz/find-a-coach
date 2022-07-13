@@ -23,7 +23,7 @@
   </section>
 </template>
 <script setup>
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 import ViewDetails from "../../components/Member/ViewDetails.vue";
 import { load_coach } from "../../hooks/load_coach";

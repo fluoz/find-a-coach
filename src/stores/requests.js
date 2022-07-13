@@ -9,7 +9,7 @@ export const useRequestStore = defineStore({
   getters: {},
   actions: {
     async getRequestData() {
-      axios.get(`${import.meta.env.VITE_FIREBASE}/coaches.json`).then((res) => {
+      axios.get(`${import.meta.env.VITE_FIREBASE}/request.json`).then((res) => {
         const data = res.data;
         const result = [];
 
@@ -29,6 +29,9 @@ export const useRequestStore = defineStore({
       axios
         .post(`${import.meta.env.VITE_FIREBASE}/requests.json`, data)
         .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
           console.log(res);
         });
     },
