@@ -71,23 +71,17 @@ const emit = defineEmits(["close"]);
 }
 
 .dialog-leave-active {
-  animation: modal-leave 0.3s ease-in;
+  animation: modal 0.3s ease-in reverse;
 }
 
 @keyframes modal {
   0% {
     transform: translateY(-50px) scale(0.7);
+    opacity: 0;
   }
   100% {
     transform: translateY(0) scale(1);
-  }
-}
-@keyframes modal-leave {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    transform: translateY(-10px) scale(0.4);
+    opacity: 1;
   }
 }
 </style>

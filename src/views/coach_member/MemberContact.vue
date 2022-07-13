@@ -74,7 +74,7 @@ async function submitForm(mail, message) {
     open.value = true;
   } else {
     try {
-      const data = { mail, message };
+      const data = { email: mail, message, to: userContact.value.value.name };
       const requestData = await requestsStore.postRequestData(data);
       modalHead.value = "Success";
       error.value = `you have successfully contacted ${userContact.value.value.name}`;
