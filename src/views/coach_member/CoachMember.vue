@@ -16,7 +16,7 @@
         >
           Contact
         </router-link>
-        <router-view></router-view>
+        <router-view class="pb-2"></router-view>
       </div>
     </div>
     <view-details :data="data.value"></view-details>
