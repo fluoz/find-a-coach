@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "@vue/reactivity";
 import { load_coach } from "../../hooks/load_coach";
 import DialogModal from "../../components/UI/DialogModal.vue";
@@ -50,6 +50,7 @@ const email = ref(null);
 const message = ref(null);
 
 const route = useRoute();
+const router = useRouter();
 const coachId = computed(() => route.params.coachId);
 const error = ref("");
 const modalHead = ref("");
@@ -62,9 +63,9 @@ const toFalse = () => {
 
 const userContact = computed(() => load_coach(coachId.value));
 
-async function submitForm(mail, message) {
+async function submitForm(mail, msg) {
   const isValid = EmailValidator.validate(mail);
-  if (!mail || !message) {
+  if (!mail || !msg) {
     modalHead.value = "An error occured";
     error.value = "Maybe your email or message is empty";
     open.value = true;
@@ -74,13 +75,20 @@ async function submitForm(mail, message) {
     open.value = true;
   } else {
     try {
-      const data = { email: mail, message, to: userContact.value.value.name };
+      const data = {
+        email: mail,
+        message: msg,
+        to: userContact.value.value.name,
+      };
       const requestData = await requestsStore.postRequestData(data);
-      modalHead.value = "Success";
-      error.value = `you have successfully contacted ${userContact.value.value.name}`;
-      console.log(userContact.value);
+      router.push({ name: "coaches" });
+    } catch (e) {
+      modalHead.value = "An error occured";
+      error.value = "Error when post to firebase";
       open.value = true;
-    } catch (e) {}
+      email.value = null;
+      message.value = null;
+    }
   }
 }
 

@@ -24,7 +24,7 @@ const getDataBox = (data) => {
 
 const loadData = async () => {
   loading.value = true;
-  await new Promise((r) => setTimeout(r, 100));
+  // await new Promise((r) => setTimeout(r, 100));
   try {
     const coachdata = await coaches.getCoachData();
   } catch (e) {}
