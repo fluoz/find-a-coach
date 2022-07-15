@@ -47,12 +47,20 @@ onMounted(() => {
     <div class="mt-10">
       <div class="max-w-[800px] use-shadow rounded-lg">
         <div class="container mx-auto p-5">
-          <button
-            class="px-3 py-2 border border-violet-700 rounded-lg"
-            @click="loadData"
-          >
-            Refresh
-          </button>
+          <div class="flex justify-between items-center">
+            <button
+              class="px-3 py-2 border border-violet-700 rounded-lg"
+              @click="loadData"
+            >
+              Refresh
+            </button>
+            <router-link
+              class="inline-block border px-4 py-3 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-full"
+              :to="{ name: 'register' }"
+              >Register as Coach</router-link
+            >
+          </div>
+
           <div class="mt-4">
             <the-spinner v-if="loading"></the-spinner>
             <the-coachs v-else></the-coachs>

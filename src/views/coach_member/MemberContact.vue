@@ -63,7 +63,7 @@ const toFalse = () => {
 
 const userContact = computed(() => load_coach(coachId.value));
 
-async function submitForm(mail, msg) {
+const submitForm = async (mail, msg) => {
   const isValid = EmailValidator.validate(mail);
   if (!mail || !msg) {
     modalHead.value = "An error occured";
@@ -90,7 +90,7 @@ async function submitForm(mail, msg) {
       message.value = null;
     }
   }
-}
+};
 
 const data = computed(() => load_coach(coachId.value));
 </script>
