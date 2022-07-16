@@ -9,7 +9,11 @@ import TheNavbar from "./components/UI/TheNavbar.vue";
   </nav>
   <div class="container mx-auto px-72 flex justify-center">
     <div class="mt-20">
-      <RouterView />
+      <RouterView v-slot="slotProps">
+        <transition name="route" mode="out-in">
+          <component :is="slotProps.Component"></component>
+        </transition>
+      </RouterView>
     </div>
   </div>
 </template>
@@ -20,5 +24,24 @@ import TheNavbar from "./components/UI/TheNavbar.vue";
 }
 body {
   overflow-y: scroll;
+}
+
+.route-enter-active {
+  animation: route 0.3s ease-out;
+}
+
+.route-leave-active {
+  animation: route 0.3s ease-in reverse;
+}
+
+@keyframes route {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
