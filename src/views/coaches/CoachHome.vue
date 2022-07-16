@@ -44,7 +44,7 @@ onMounted(() => {
       :career="career"
       @checkboxes="getDataBox"
     ></find-coach>
-    <div class="mt-10">
+    <div class="mt-10 pb-20">
       <div class="max-w-[800px] use-shadow rounded-lg">
         <div class="container mx-auto p-5">
           <div class="flex justify-between items-center">

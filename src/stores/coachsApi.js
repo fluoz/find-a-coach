@@ -28,5 +28,15 @@ export const useCoachStore = defineStore({
         // console.log(result);
       });
     },
+    async postCoachData(data) {
+      axios
+        .post(`${import.meta.env.VITE_FIREBASE}/coaches.json`, data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
   },
 });

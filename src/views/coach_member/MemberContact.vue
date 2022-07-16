@@ -45,6 +45,7 @@ import { load_coach } from "../../hooks/load_coach";
 import DialogModal from "../../components/UI/DialogModal.vue";
 import * as EmailValidator from "email-validator";
 import { useRequestStore } from "../../stores/requests";
+import { dialogFunc } from "../../hooks/dialog";
 
 const email = ref(null);
 const message = ref(null);
@@ -52,14 +53,9 @@ const message = ref(null);
 const route = useRoute();
 const router = useRouter();
 const coachId = computed(() => route.params.coachId);
-const error = ref("");
-const modalHead = ref("");
-const open = ref(false);
 const requestsStore = useRequestStore();
 
-const toFalse = () => {
-  open.value = false;
-};
+const { error, modalHead, open, toFalse } = dialogFunc();
 
 const userContact = computed(() => load_coach(coachId.value));
 
