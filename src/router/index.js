@@ -4,7 +4,8 @@ import RequestsView from "../views/requests/RequestsHome.vue";
 import CoachMember from "../views/coach_member/CoachMember.vue";
 import MemberContact from "../views/coach_member/MemberContact.vue";
 import RegisterView from "../views/register/RegisterView.vue";
-import notFound from "../components/notFound.vue";
+import notFound from "../views/notFound.vue";
+import UserAuth from "../views/auth/UserAuth.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       path: "/requests",
       name: "requests",
       component: RequestsView,
+    },
+    {
+      path: "/auth",
+      name: "auth",
+      component: UserAuth,
     },
     {
       path: "/:pathMatch(.*)*",
