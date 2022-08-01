@@ -40,11 +40,12 @@ import { ref } from "@vue/reactivity";
 import { useAuthStore } from "../../stores/auth.js";
 import DialogModal from "../UI/DialogModal.vue";
 import { dialogFunc } from "../../hooks/dialog.js";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const emit = defineEmits(["afterSign"]);
 
 const router = useRouter();
+const route = useRoute();
 const email = ref(null);
 const password = ref(null);
 const auth = useAuthStore();
@@ -54,7 +55,8 @@ const { error, modalHead, open, toFalse } = dialogFunc();
 const submitData = async () => {
   try {
     const res = await auth.login({ email, password });
-    router.push({ name: "coaches" });
+    const routeTo = route.query.redirect || "coaches";
+    router.push({ name: routeTo });
   } catch (err) {
     error.value = err;
     modalHead.value = "Error";

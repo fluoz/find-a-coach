@@ -41,7 +41,7 @@ const authRoute = computed(() => {
     return { name: "register" };
   }
   btnLink.value = "Login to Register as a Coach";
-  return { name: "auth" };
+  return "/auth?redirect=register";
 });
 
 onMounted(() => {

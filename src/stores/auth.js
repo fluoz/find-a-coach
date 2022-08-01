@@ -64,5 +64,11 @@ export const useAuthStore = defineStore({
         throw error;
       }
     },
+    logout() {
+      this.token = null;
+      this.userId = null;
+      this.tokenExpiration = null;
+      this.email = null;
+    },
   },
 });
