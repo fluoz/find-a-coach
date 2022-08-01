@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+let timer;
+
 export const useAuthStore = defineStore({
   id: "auth",
   state: () => ({
@@ -8,7 +10,6 @@ export const useAuthStore = defineStore({
     userId: null,
     token: null,
     // didAutoLogout: false,
-    tokenExpiration: null,
   }),
   getters: {
     isAuthenticated: (state) => {
@@ -27,11 +28,6 @@ export const useAuthStore = defineStore({
           returnSecureToken: true,
         });
 
-        this.token = response.data.idToken;
-        this.userId = response.data.localId;
-        this.tokenExpiration = response.data.expiresIn;
-        this.email = response.data.email;
-        console.log(this.email);
         return response;
       } catch (err) {
         const error = new Error(
@@ -51,10 +47,22 @@ export const useAuthStore = defineStore({
           returnSecureToken: true,
         });
         if (response.status == 200) {
+          // const expiresIn = +response.data.expiresIn * 1000;
+          const expiresIn = 5000;
+          const expirationDate = new Date().getTime() + expiresIn;
+
+          localStorage.setItem("token", response.data.idToken);
+          localStorage.setItem("userId", response.data.localId);
+          localStorage.setItem("tokenExpiration", response.data.expiresIn);
+          localStorage.setItem("email", response.data.email);
+
           this.token = response.data.idToken;
           this.userId = response.data.localId;
-          this.tokenExpiration = response.data.expiresIn;
           this.email = response.data.email;
+
+          timer = setTimeout(() => {
+            this.logout();
+          }, expiresIn);
         }
         return response;
       } catch (err) {
@@ -64,7 +72,32 @@ export const useAuthStore = defineStore({
         throw error;
       }
     },
+    tryLogin() {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+      const tokenExpiration = localStorage.getItem("tokenExpiration");
+      const email = localStorage.getItem("email");
+
+      const expiresIn = +tokenExpiration - new Date().getTime();
+
+      if (expiresIn < 0) {
+        return;
+      }
+
+      timer = setTimeout(function () {
+        this.logout();
+      }, expiresIn);
+
+      if (token && userId) {
+        this.token = localStorage.getItem("token");
+        this.userId = localStorage.getItem("userId");
+        this.email = localStorage.getItem("email");
+      }
+    },
     logout() {
+      localStorage.clear();
+      clearTimeout(timer);
+
       this.token = null;
       this.userId = null;
       this.tokenExpiration = null;

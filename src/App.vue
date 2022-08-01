@@ -1,6 +1,13 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
+import { useAuthStore } from "./stores/auth";
 import TheNavbar from "./components/UI/TheNavbar.vue";
+
+const auth = useAuthStore();
+
+onMounted(() => {
+  auth.tryLogin();
+});
 </script>
 
 <template>

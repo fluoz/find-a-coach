@@ -55,9 +55,11 @@ const { error, modalHead, open, toFalse } = dialogFunc();
 const submitData = async () => {
   try {
     const res = await auth.login({ email, password });
+    console.log(res);
     const routeTo = route.query.redirect || "coaches";
     router.push({ name: routeTo });
   } catch (err) {
+    console.log(err);
     error.value = err;
     modalHead.value = "Error";
     open.value = true;
