@@ -9,7 +9,8 @@
             id="email"
             type="email"
             v-model="email"
-            required
+            :required="!emailAuth"
+            :disabled="emailAuth"
           />
         </div>
         <div class="flex flex-col">
@@ -45,10 +46,25 @@ import { load_coach } from "../../hooks/load_coach";
 import DialogModal from "../../components/UI/DialogModal.vue";
 import * as EmailValidator from "email-validator";
 import { useRequestStore } from "../../stores/requests";
+import { useAuthStore } from "../../stores/auth";
 import { dialogFunc } from "../../hooks/dialog";
+import { watch } from "@vue/runtime-core";
 
-const email = ref(null);
+const auth = useAuthStore();
+
+const isLogin = ref(false);
+
+const email = ref(auth.email);
 const message = ref(null);
+
+const emailAuth = computed(() => {
+  if (auth.email) {
+    email.value = auth.email;
+    return true;
+  } else {
+    return false;
+  }
+});
 
 const route = useRoute();
 const router = useRouter();

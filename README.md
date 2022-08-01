@@ -3,6 +3,7 @@
 This template should help get you started developing with Vue 3 in Vite.
 
 Please change the VITE_FIREBASE in the .env file into your firebase realtime database url.
+Please change the VITE_API_KEY in the .env file into your firebase web api key.
 
 ## Recommended IDE Setup
 
@@ -35,4 +36,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
 # find-a-coach

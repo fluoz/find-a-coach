@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="submitData">
     <h1 class="font-bold text-xl py-3">Login</h1>
     <div class="flex flex-col">
       <label for="name" class="font-semibold py-2">Email</label>
@@ -7,6 +7,7 @@
         class="border focus:outline-blue-900 focus:bg-violet-100 focus:outline"
         id="name"
         type="email"
+        v-model="email"
       />
     </div>
 
@@ -16,6 +17,7 @@
         class="border focus:outline-blue-900 focus:bg-violet-100 focus:outline"
         id="rate"
         type="password"
+        v-model="password"
       />
     </div>
     <div class="py-3 px-1"></div>
@@ -27,4 +29,37 @@
       Login
     </button>
   </form>
+  <dialog-modal :open="open" @close="toFalse">
+    <template #head> {{ modalHead }}</template>
+    <template #message> {{ error }} </template>
+  </dialog-modal>
 </template>
+
+<script setup>
+import { ref } from "@vue/reactivity";
+import { useAuthStore } from "../../stores/auth.js";
+import DialogModal from "../UI/DialogModal.vue";
+import { dialogFunc } from "../../hooks/dialog.js";
+
+const emit = defineEmits(["afterSign"]);
+
+const email = ref(null);
+const password = ref(null);
+const auth = useAuthStore();
+
+const { error, modalHead, open, toFalse } = dialogFunc();
+
+const submitData = async () => {
+  try {
+    const res = await auth.login({ email, password });
+    console.log(res);
+    error.value = "Login Success";
+    modalHead.value = "Success";
+    open.value = true;
+  } catch (err) {
+    error.value = err;
+    modalHead.value = "Error";
+    open.value = true;
+  }
+};
+</script>

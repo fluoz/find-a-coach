@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useAuthStore } from "./auth";
 
 export const useRequestStore = defineStore({
   id: "request",
@@ -9,8 +10,13 @@ export const useRequestStore = defineStore({
   getters: {},
   actions: {
     async getRequestData() {
+      const auth = useAuthStore();
       axios
-        .get(`${import.meta.env.VITE_FIREBASE}/requests.json`)
+        .get(
+          `${import.meta.env.VITE_FIREBASE}/requests/${auth.userId}.json?auth=${
+            auth.token
+          }`
+        )
         .then((res) => {
           const data = res.data;
           const result = [];
@@ -26,8 +32,15 @@ export const useRequestStore = defineStore({
         });
     },
     async postRequestData(data) {
+      const auth = useAuthStore();
+      let userId = null;
+      if (auth.userId) {
+        userId = auth.userId;
+      } else {
+        userId = "noid";
+      }
       axios
-        .post(`${import.meta.env.VITE_FIREBASE}/requests.json`, data)
+        .post(`${import.meta.env.VITE_FIREBASE}/requests/${userId}.json`, data)
         .then((res) => {
           console.log(res);
         })

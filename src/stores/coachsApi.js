@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useAuthStore } from "./auth";
 
 export const useCoachStore = defineStore({
   id: "coachs-api",
@@ -29,8 +30,12 @@ export const useCoachStore = defineStore({
       });
     },
     async postCoachData(data) {
+      const auth = useAuthStore();
       axios
-        .post(`${import.meta.env.VITE_FIREBASE}/coaches.json`, data)
+        .post(
+          `${import.meta.env.VITE_FIREBASE}/coaches.json?auth=${auth.token}`,
+          data
+        )
         .then((res) => {
           console.log(res);
         })
