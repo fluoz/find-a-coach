@@ -53,7 +53,7 @@ export const useAuthStore = defineStore({
 
           localStorage.setItem("token", response.data.idToken);
           localStorage.setItem("userId", response.data.localId);
-          localStorage.setItem("tokenExpiration", response.data.expiresIn);
+          localStorage.setItem("tokenExpiration", expirationDate);
           localStorage.setItem("email", response.data.email);
 
           this.token = response.data.idToken;
@@ -79,7 +79,6 @@ export const useAuthStore = defineStore({
       const email = localStorage.getItem("email");
 
       const expiresIn = +tokenExpiration - new Date().getTime();
-
       if (expiresIn < 0) {
         return;
       }
