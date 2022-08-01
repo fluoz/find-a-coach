@@ -2,15 +2,19 @@
 import FindCoach from "../../components/Home/FindCoach.vue";
 import TheCoachs from "../../components/Home/TheCoachs.vue";
 import TheSpinner from "../../components/UI/TheSpinner.vue";
-import { onMounted, provide, ref } from "vue";
+import { computed, onMounted, provide, ref } from "vue";
 import { useCoachStore } from "../../stores/coachsApi.js";
+import { useAuthStore } from "../../stores/auth";
 
+const auth = useAuthStore();
 const coaches = useCoachStore();
 const loading = ref(false);
 
 const frontend = ref(true);
 const backend = ref(true);
 const career = ref(true);
+
+const btnLink = ref("null");
 
 provide("frontend", frontend);
 provide("backend", backend);
@@ -30,6 +34,15 @@ const loadData = async () => {
   } catch (e) {}
   loading.value = false;
 };
+
+const authRoute = computed(() => {
+  if (auth.isAuthenticated) {
+    btnLink.value = "Register as a Coach";
+    return { name: "register" };
+  }
+  btnLink.value = "Login to Register as a Coach";
+  return { name: "auth" };
+});
 
 onMounted(() => {
   loadData();
@@ -56,8 +69,8 @@ onMounted(() => {
             </button>
             <router-link
               class="inline-block border px-4 py-3 text-white bg-violet-900 hover:bg-purple-800 font-medium rounded-full"
-              :to="{ name: 'register' }"
-              >Register as Coach</router-link
+              :to="authRoute"
+              >{{ btnLink }}</router-link
             >
           </div>
 

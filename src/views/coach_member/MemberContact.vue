@@ -58,7 +58,7 @@ const email = ref(auth.email);
 const message = ref(null);
 
 const emailAuth = computed(() => {
-  if (auth.email) {
+  if (auth.isAuthenticated) {
     email.value = auth.email;
     return true;
   } else {
